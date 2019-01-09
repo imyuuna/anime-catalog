@@ -35,7 +35,7 @@ if(Anime::getLastWatched() != $title) {
 					<a class="navbar-brand" href="index.php">Animu CataOwOlog</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">All titles</a></li>
+					<li><a class="bold" href="index.php">Anime list</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a id="refresh" href="javascript:void(0)">Refresh</a></li>

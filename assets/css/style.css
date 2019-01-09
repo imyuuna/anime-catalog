@@ -230,6 +230,14 @@ a.episode-item:hover {
 	margin-bottom: 10px;
 }
 
+.hidden {
+	display: none;
+}
+
+.bold {
+	font-weight: bold;
+}
+
 footer {
 	margin-top: 50px;
 	background-color: #fff;

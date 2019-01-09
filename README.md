@@ -1,6 +1,6 @@
-![Alt text](https://raw.githubusercontent.com/normansyarif/anime-catalog/master/assets/images/screenshots/Screen%20Shot%202019-01-02%20at%205.54.48%20PM.png "Homepage")
+![Alt text](https://raw.githubusercontent.com/normansyarif/anime-catalog/master/assets/images/screenshots/1.png "Homepage")
 <br /><br />
-![Alt text](https://github.com/normansyarif/anime-catalog/raw/master/assets/images/screenshots/Screen%20Shot%202018-12-31%20at%207.02.26%20PM.png "Episode list")
+![Alt text](https://github.com/normansyarif/anime-catalog/raw/master/assets/images/screenshots/2.png "Episode list")
 <br /><br />
 
 ### How to use:

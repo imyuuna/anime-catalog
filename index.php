@@ -30,10 +30,15 @@ $lw = new Anime($rootDir, $lastWatched)
 					<a class="navbar-brand" href="index.php">Animu CataOwOlog</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.php">All titles</a></li>
+					<li><a class="bold" href="index.php">Anime list</a></li>
+					<li class="active"><a class="bf" id="bf-all" href="javascript:void(0)">All</a></li>
+					<li><a class="bf" id="bf-watching" href="javascript:void(0)">Watching</a></li>
+					<li><a class="bf" id="bf-planned" href="javascript:void(0)">Plan to Watch</a></li>
+					<li><a class="bf" id="bf-finished" href="javascript:void(0)">Finished</a></li>
+					<li><a class="bf" id="bf-no-data" href="javascript:void(0)">No Data</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="show-titles" class="toggle" href="javascript:void(0)">Show the titles OwO</a></li>
+					<li><a id="show-titles" class="toggle" href="javascript:void(0)">Show titles</a></li>
 				</ul>
 			</div>
 		</div>
@@ -57,7 +62,7 @@ $lw = new Anime($rootDir, $lastWatched)
 								<div class="info">
 									<p>The last anime you watched</p>
 									<p style="font-weight: bold; font-size: 1.3em;margin-top: 80px">
-										
+
 										<?php
 										echo $lastWatched;
 										if($lw->dataExists()) echo ' (' . $lw->getType() . ')';
@@ -69,7 +74,7 @@ $lw = new Anime($rootDir, $lastWatched)
 									</p>
 
 									<p style="font-style: italic">
-										
+
 										<?php 
 										if($lw->dataExists()):
 											if($lw->getLastEps() == "Finished"):
@@ -104,84 +109,101 @@ $lw = new Anime($rootDir, $lastWatched)
 					foreach($animeDirs as $dir): 
 						if($dir != $lastWatched):
 							$anime = new Anime($rootDir, $dir); 
+							$lastEp = $anime->getLastEps();
 							?>
 
-							<div class="col-md-3 small-box-container">
-								<div class="small-box">
-									<img style="width: 100%" class="wide" src="<?php echo $anime->getImage() ?>">
-									<div class="middle">
-										<div class="text" style="background-color: 
+							<div class="col-md-3 small-box-container hidden
+
+							<?php 
+							if($anime->dataExists()):
+							if($lastEp == "Finished"):
+							echo 'f-finished';
+							elseif($lastEp == "Plan to Watch"):
+							echo 'f-planned';
+							else:
+							echo 'f-watching';
+							endif;
+							else:
+							echo 'f-no-data';
+							endif;
+							?>
+
+							">
+							<div class="small-box">
+								<img style="width: 100%" class="wide" src="<?php echo $anime->getImage() ?>">
+								<div class="middle">
+									<div class="text" style="background-color: 
+
+									<?php
+									if($anime->dataExists()):
+										if($anime->getLastEps() == "Plan to Watch") echo '#5bc0de';
+										elseif($anime->getLastEps() == "Finished") echo '#dd13c3';
+										else echo '#13c689';
+									else:
+										echo '#e13e3e';
+									endif;
+									?>
+
+									">
+
+									<p style="font-weight: bold; font-size: 1.1em">
 
 										<?php
 										if($anime->dataExists()):
-											if($anime->getLastEps() == "Plan to Watch") echo '#5bc0de';
-											elseif($anime->getLastEps() == "Finished") echo '#dd13c3';
-											else echo '#13c689';
+											?>
+											<a href="anime.php?title=<?php echo $dir ?>"><?php echo $dir . ' (' . $anime->getType() . ')' ?></a>
+											<?php
 										else:
-											echo '#e13e3e';
+											?>
+											<a href="anime.php?title=<?php echo $dir ?>"><?php echo $dir ?></a>
+											<?php
 										endif;
 										?>
 
-										">
+									</p>
+									<p>
+										<?php echo $anime->getGenre() ?>
+									</p>
 
-										<p style="font-weight: bold; font-size: 1.1em">
-											
-											<?php
-											if($anime->dataExists()):
-												?>
-												<a href="anime.php?title=<?php echo $dir ?>"><?php echo $dir . ' (' . $anime->getType() . ')' ?></a>
-												<?php
-											else:
-												?>
-												<a href="anime.php?title=<?php echo $dir ?>"><?php echo $dir ?></a>
-												<?php
-											endif;
+
+									<?php 
+									if($anime->dataExists()):
+										if($anime->getLastEps() == "Plan to Watch"): 
 											?>
-
-										</p>
-										<p>
-											<?php echo $anime->getGenre() ?>
-										</p>
-
-
-										<?php 
-										if($anime->dataExists()):
-											if($anime->getLastEps() == "Plan to Watch"): 
-												?>
-												<p>Plan to Watch - <?php echo $anime->getTotalEps() ?> episodes</p>
-												<?php 
-											elseif($anime->getLastEps() == "Finished"): 
-												?>
-												<p>Finished</p>
-												<?php 
-											else:
-												?>
-												<p>Watching - <?php echo $anime->getTotalEps() ?> episodes</p>
-												<?php 
-											endif;
+											<p>Plan to Watch - <?php echo $anime->getTotalEps() ?> episodes</p>
+											<?php 
+										elseif($anime->getLastEps() == "Finished"): 
+											?>
+											<p>Finished</p>
+											<?php 
 										else:
 											?>
-											<p>No data - <?php echo $anime->getTotalEps() ?> episodes</p>
-											<?php
-										endif; 
+											<p>Watching - <?php echo $anime->getTotalEps() ?> episodes</p>
+											<?php 
+										endif;
+									else:
 										?>
+										<p>No data - <?php echo $anime->getTotalEps() ?> episodes</p>
+										<?php
+									endif; 
+									?>
 
-									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<?php
-					endif; 
-				endforeach;
-			endif;
-			?>
-
-		</div>
-
-		<div class="clear"></div>
+					<?php
+				endif; 
+			endforeach;
+		endif;
+		?>
 
 	</div>
+
+	<div class="clear"></div>
+
+</div>
 </div>
 </body>
 
@@ -191,14 +213,37 @@ $lw = new Anime($rootDir, $lastWatched)
 
 <script type="text/javascript">
 
+	$('.small-box-container').removeClass('hidden');
+
+	$('.bf').click(function() {
+		var box = $('.small-box-container');
+		var id = $(this).attr('id');
+
+		box.addClass('hidden');
+		$('.active').removeClass('active');
+		$(this).parent().addClass('active');
+
+		if(id == 'bf-all') {
+			box.removeClass('hidden');
+		}else if(id == 'bf-watching') {
+			$('.f-watching').removeClass('hidden');
+		}else if(id == 'bf-planned') {
+			$('.f-planned').removeClass('hidden');
+		}else if(id == 'bf-finished') {
+			$('.f-finished').removeClass('hidden');
+		}else if(id == 'bf-no-data') {
+			$('.f-no-data').removeClass('hidden');
+		}
+	});
+
 	$('.toggle').click(function() {
 		if($(this).attr('id') == 'show-titles') {
 			$(this).attr("id", "hide-titles");
-			$(this).html("Hide the titles UwU");
+			$(this).html("Hide titles");
 			$('.middle').addClass("opacity1");
 		}else{
 			$(this).attr("id", "show-titles");
-			$(this).html("Show the titles OwO");
+			$(this).html("Show titles");
 			$('.middle').removeClass("opacity1");
 		}
 	});
