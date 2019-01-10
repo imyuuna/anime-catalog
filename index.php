@@ -110,25 +110,16 @@ $lw = new Anime($rootDir, $lastWatched)
 						if($dir != $lastWatched):
 							$anime = new Anime($rootDir, $dir); 
 							$lastEp = $anime->getLastEps();
-							?>
+							$filter = 'f-no-data';
 
-							<div class="col-md-3 small-box-container hidden
-
-							<?php 
 							if($anime->dataExists()):
-							if($lastEp == "Finished"):
-							echo 'f-finished';
-							elseif($lastEp == "Plan to Watch"):
-							echo 'f-planned';
-							else:
-							echo 'f-watching';
-							endif;
-							else:
-							echo 'f-no-data';
+								if($lastEp == "Finished") $filter = 'f-finished';
+								elseif($lastEp == "Plan to Watch") $filter = 'f-planned';
+								else $filter = 'f-watching';
 							endif;
 							?>
 
-							">
+							<div class="col-md-3 small-box-container hidden <?php echo $filter ?>">
 							<div class="small-box">
 								<img style="width: 100%" class="wide" src="<?php echo $anime->getImage() ?>">
 								<div class="middle">
@@ -136,8 +127,8 @@ $lw = new Anime($rootDir, $lastWatched)
 
 									<?php
 									if($anime->dataExists()):
-										if($anime->getLastEps() == "Plan to Watch") echo '#5bc0de';
-										elseif($anime->getLastEps() == "Finished") echo '#dd13c3';
+										if($lastEp == "Plan to Watch") echo '#5bc0de';
+										elseif($lastEp == "Finished") echo '#dd13c3';
 										else echo '#13c689';
 									else:
 										echo '#e13e3e';
@@ -168,11 +159,11 @@ $lw = new Anime($rootDir, $lastWatched)
 
 									<?php 
 									if($anime->dataExists()):
-										if($anime->getLastEps() == "Plan to Watch"): 
+										if($lastEp == "Plan to Watch"): 
 											?>
 											<p>Plan to Watch - <?php echo $anime->getTotalEps() ?> episodes</p>
 											<?php 
-										elseif($anime->getLastEps() == "Finished"): 
+										elseif($lastEp == "Finished"): 
 											?>
 											<p>Finished</p>
 											<?php 
