@@ -23,6 +23,5 @@ anime-catalog/
 
 ### Note:
 By default, when you click on the episode, it will retrieve the video file from the server and stream it to your browser. If you want to watch it locally, you need to:
-* open **anime-local.php** then edit the value of **$baseDir** variable to the absolute path of where you put your anime collection
-* rename **anime-local.php** to **anime.php** (make a backup of your old anime.php first)
-* finally, you can play the video by dragging the episode to the VLC icon in your Dock (MacOS).
+* open **anime.php** then edit the value of **$baseDir** variable to the absolute path of where you put your anime collection
+* then, you can play the video by dragging the episode to the VLC icon in your Dock (MacOS).
