@@ -63,7 +63,7 @@ class Anime {
 		return file_put_contents($path, $encoded);
 	}
 
-	function delete() {
+	public function delete() {
 		if(file_exists($this->animePath)) {
 			$i = new DirectoryIterator($this->animePath);
 			foreach($i as $f) {
