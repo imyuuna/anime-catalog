@@ -3,6 +3,10 @@
 require_once('Classes/Anime.php');
 require_once('Classes/Common.php');
 
+// Set this value to null if you want to stream the episode
+// or to the absolute path of your anime collection if you want to watch it locally
+$baseDir = '/Volumes/Data/norman/Programming/Web/anime-catalog/Anime';
+
 $rootDir = './Anime';
 $title = $_GET['title'];
 $anime = new Anime($rootDir, $title);
@@ -74,9 +78,23 @@ if(Anime::getLastWatched() != $title) {
 							foreach($episodes as $ep):
 								?>
 								<div>
-									<a ondragstart="dragStart(event)" draggable="true" eps="<?php echo Common::cleanFilename($ep)?>" href="<?php echo $rootDir . '/' . $title . '/' . $ep ?>" class="episode-item <?php echo ($anime->getLastEps() == $ep) ? 'highlight' : '' ?>">
-										<?php echo Common::cleanFilename($ep) ?>
-									</a>
+									<?php
+									if($baseDir):
+										?>
+
+										<a ondragstart="dragStart(event)" draggable="true" eps="<?php echo Common::cleanFilename($ep)?>" path="<?php echo $baseDir . '/' . $title . '/' . $ep ?>" href="javascript:void(0)" class="episode-item <?php echo ($anime->getLastEps() == $ep) ? 'highlight' : '' ?>">
+											<?php echo Common::cleanFilename($ep) ?>
+										</a>
+
+										<?php
+									else:
+										?>
+										<a ondragstart="dragStart(event)" draggable="true" eps="<?php echo Common::cleanFilename($ep)?>" href="<?php echo $rootDir . '/' . $title . '/' . $ep ?>" class="episode-item <?php echo ($anime->getLastEps() == $ep) ? 'highlight' : '' ?>">
+											<?php echo Common::cleanFilename($ep) ?>
+										</a>
+										<?php
+									endif;
+									?>
 
 									<?php
 									if($anime->dataExists()):
