@@ -223,6 +223,16 @@ if(Anime::getLastWatched() != $title) {
 
 	function dragStart(event) {
 		var eps = event.target.getAttribute("eps");
+		
+		<?php
+		if($baseDir):
+			?>
+			var path = event.target.getAttribute("path");
+			event.dataTransfer.setData("Text", path);
+			<?php
+		endif;
+		?>
+		
 		$('.highlight').removeClass('highlight');
 		$( "a:contains(" + eps + ")" ).addClass('highlight');
 	}
